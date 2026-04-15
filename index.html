@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Bookmark Flow | Auth + Manager UI</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- AUTH SWITCH FORM (merged perfectly - login/signup with profile pic) -->
+    <div id="auth-switch-card" class="auth-switch-card">
+      <input type="radio" name="auth-switch" id="login-tab" class="tab-radio" checked>
+      <input type="radio" name="auth-switch" id="signup-tab" class="tab-radio">
+      <div class="tab-bar">
+        <label for="login-tab" class="tab-btn">
+          <i class="fas fa-sign-in-alt"></i> Sign in
+        </label>
+        <label for="signup-tab" class="tab-btn">
+          <i class="fas fa-user-plus"></i> Create account
+        </label>
+      </div>
+      <div class="forms-container">
+        <!-- LOGIN FORM -->
+        <div class="form-wrapper login-form">
+          <form id="login-form" class="auth-form">
+            <div class="input-group">
+              <label>
+                <i class="fas fa-envelope"></i> Email
+              </label>
+              <input class="email" type="email" placeholder="hello@bookmarkhub.com" value="user@example.com">
+            </div>
+            <div class="input-group">
+              <label>
+                <i class="fas fa-lock"></i> Password
+              </label>
+              <input class="password" type="password" placeholder="Enter password">
+            </div>
+            <div class="extra-links" style="text-align:right;">
+              <a href="#">Forgot password?</a>
+            </div>
+            <button type="submit" class="auth-submit">
+              <i class="fas fa-arrow-right-to-bracket"></i> Log in
+            </button>
+            <div class="extra-links">No account?
+              <label for="signup-tab" style="color:#1f6e43; cursor:pointer;">Sign
+                up</label>
+            </div>
+          </form>
+        </div>
+        <!-- SIGNUP FORM (with profile picture) -->
+        <div class="form-wrapper signup-form">
+          <form id="signup-form" class="auth-form">
+            <div class="profile-section">
+              <div class="avatar-circle">
+                <i class="fas fa-user-astronaut"></i>
+              </div>
+            </div>
+            <div class="row-2col">
+              <div class="input-group">
+                <label>Full name</label>
+                <input class="name" type="text" value="Alex Morgan">
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Email</label>
+              <input class="email" type="email" value="alex@bookmarkhub.com">
+            </div>
+            <div class="row-2col">
+              <div class="input-group">
+                <label>Password</label>
+                <input autocomplete="off" class="password" type="password" placeholder="Create password">
+              </div>
+              <div class="input-group">
+                <label>Confirm</label>
+                <input autocomplete="off" class="confirm-password" type="password" placeholder="Confirm">
+              </div>
+            </div>
+            <div class="input-group">
+              <label>Favorite category</label>
+              <select class="category-select">
+                <option>Development</option>
+                <option selected>Design</option>
+                <option>Productivity</option>
+              </select>
+            </div>
+            <button type="submit" class="auth-submit">
+              <i class="fas fa-user-check"></i> Sign up & start
+            </button>
+            <div class="extra-links">Already have an account?
+              <label for="login-tab" style="color:#1f6e43; cursor:pointer;">Sign in</label>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- BOOKMARK MANAGER SECTION (filter, add btn, cards, empty state) -->
+    <div id="manager-section" class="hidden manager-section">
+      <div class="action-bar">
+        <div class="logo">
+          <i style="color: orange; font-size: 15px;" class="fas fa-bookmark"></i>
+          <span style="text-align: center ; font-weight: 800; color: #1e3a5f;">BookmarkHub</span>
+        </div>
+        <div class="filter-group">
+          <label>
+            <i class="fas fa-filter"></i> Filter by title / category
+          </label>
+          <input type="text" placeholder="e.g., design, dev, article...">
+        </div>
+        <div class="rightside">
+          <label for="addBookmarkModalTrigger" class="add-bookmark-btn" style="cursor:pointer;">
+            <i class="fas fa-plus-circle"></i>
+            New Bookmark
+          </label>
+          <label for="updateProfileModalTrigger">
+            <div class="logout">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </div>
+          </label>
+        </div>
+      </div>
+      <!-- BOOKMARKS GRID (cards style with remove/update) -->
+      <div id="booKGrid" class="bookmarks-grid">
+        
+      
+      </div>
+      
+      <div class="empty-state-demo">
+        <div style="font-size: 2.5rem;">📭</div>
+        <p>
+          <strong>No bookmarks found</strong> — add your first link using the form above ✨
+        </p>
+        <p style="font-size:0.7rem; margin-top:6px;">Empty state example: appears when bookmark list is empty</p>
+      </div>
+    </div>
+    <footer> 🔏 Bookmark Manager created by <b>Debjeet</b></footer>
+  </div>
+  <!-- ========= MODALS (pure css checkbox hack) ========= -->
+  <input type="checkbox" id="addBookmarkModalTrigger" class="modal-trigger" style="display:none;">
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <h3 id="addBookmarkTrigger">
+        <i class="fas fa-plus-circle"></i> Add bookmark
+      </h3>
+      <input 
+       class="bookmark-title"
+       type="text" placeholder="Title" value="New Resource">
+      <input class="bookmark-url" type="url" placeholder="URL" value="https://example.com">
+      <textarea class="bookmark-description" placeholder="Description"></textarea>
+      <input class="bookmark-category"  type="text" placeholder="Category">
+      <div class="modal-buttons">
+        <label for="addBookmarkModalTrigger" class="close-modal">Cancel</label>
+        <label id="addBookmarkBtn" class="primary-btn">Save</label>
+      </div>
+    </div>
+  </div>
+  <input type="checkbox" id="updateBookmarkModalTrigger" class="modal-trigger" style="display:none;">
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <h3>
+        <i class="fas fa-sync-alt"></i> Update bookmark
+      </h3>
+      <input type="text" value="Tailwind CSS Mastery">
+      <input type="url" value="https://tailwindcss.com/docs">
+      <textarea>Complete guide to utility-first CSS</textarea>
+      <input type="text" value="Development">
+      <div class="modal-buttons">
+        <label for="updateBookmarkModalTrigger">Cancel</label>
+        <label for="updateBookmarkModalTrigger" class="primary-btn">Update</label>
+      </div>
+    </div>
+  </div>
+  <input type="checkbox" id="addNoteModalTrigger" class="modal-trigger" style="display:none;">
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <h3>
+        <i class="far fa-sticky-note"></i> Add note
+      </h3>
+      <textarea placeholder="Write your note here..." rows="3"></textarea>
+      <div class="modal-buttons">
+        <label for="addNoteModalTrigger">Close</label>
+        <label for="addNoteModalTrigger" class="primary-btn">Save note</label>
+      </div>
+    </div>
+  </div>
+  <!-- optional profile update modal (consistent) -->
+  <input type="checkbox" id="updateProfileModalTrigger" class="modal-trigger" style="display:none;">
+    </div>
+  </div>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
