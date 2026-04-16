@@ -412,6 +412,16 @@
       line-height: 1.4;
       margin: 0.3rem 0;
     }
+    .logo > span{
+      font-size: 15px;
+      text-align: center;
+      font-weight: 800;
+      color: #1e3a5f;
+    }
+    .logo > i{
+      color: orange;
+      font-size: 15px;
+    }
 
     .url-link {
       font-size: 0.7rem;
@@ -535,7 +545,30 @@
       .forms-container {
         padding: 1.2rem;
       }
-
+      .logo{
+        font-size: 15px;
+        text-align: center;
+      }
+      .logo > span{
+        font-size: 18px;
+      }
+      .rightside{
+        margin: auto;
+      }
+      .add-bookmark-btn{
+        padding: 0.9rem 2rem;
+        font-size: 1rem;
+      }
+      .add-bookmark-btn > i{
+        font-size: 14px;
+      }
+      .logout{
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+      }
+      .logout i{
+        font-size: 16px;
+      }
       .action-bar {
         flex-direction: column;
         align-items: stretch;

@@ -105,14 +105,8 @@
     <div id="manager-section" class="hidden manager-section">
       <div class="action-bar">
         <div class="logo">
-          <i style="color: orange; font-size: 15px;" class="fas fa-bookmark"></i>
-          <span style="text-align: center ; font-weight: 800; color: #1e3a5f;">BookmarkHub</span>
-        </div>
-        <div class="filter-group">
-          <label>
-            <i class="fas fa-filter"></i> Filter by title / category
-          </label>
-          <input type="text" placeholder="e.g., design, dev, article...">
+          <i class="fas fa-bookmark"></i>
+          <span>BookmarkHub</span>
         </div>
         <div class="rightside">
           <label for="addBookmarkModalTrigger" class="add-bookmark-btn" style="cursor:pointer;">
@@ -121,17 +115,17 @@
           </label>
           <label for="updateProfileModalTrigger">
             <div class="logout">
-              <i class="fas fa-sign-out-alt"></i> Logout
+              <i class="fas fa-sign-out-alt"></i> 
+              Logout
             </div>
           </label>
         </div>
       </div>
       <!-- BOOKMARKS GRID (cards style with remove/update) -->
       <div id="booKGrid" class="bookmarks-grid">
-        
-      
+
       </div>
-      
+
       <div class="empty-state-demo">
         <div style="font-size: 2.5rem;">📭</div>
         <p>
@@ -149,12 +143,10 @@
       <h3 id="addBookmarkTrigger">
         <i class="fas fa-plus-circle"></i> Add bookmark
       </h3>
-      <input 
-       class="bookmark-title"
-       type="text" placeholder="Title" value="New Resource">
+      <input class="bookmark-title" type="text" placeholder="Title" value="New Resource">
       <input class="bookmark-url" type="url" placeholder="URL" value="https://example.com">
       <textarea class="bookmark-description" placeholder="Description"></textarea>
-      <input class="bookmark-category"  type="text" placeholder="Category">
+      <input class="bookmark-category" type="text" placeholder="Category">
       <div class="modal-buttons">
         <label for="addBookmarkModalTrigger" class="close-modal">Cancel</label>
         <label id="addBookmarkBtn" class="primary-btn">Save</label>
@@ -167,13 +159,15 @@
       <h3>
         <i class="fas fa-sync-alt"></i> Update bookmark
       </h3>
-      <input type="text" value="Tailwind CSS Mastery">
-      <input type="url" value="https://tailwindcss.com/docs">
-      <textarea>Complete guide to utility-first CSS</textarea>
-      <input type="text" value="Development">
+      <input 
+      class="bookmark-title"
+       type="text" value="Tailwind CSS Mastery">
+      <input class="bookmark-url" type="url" value="https://tailwindcss.com/docs">
+      <textarea class="bookmark-description">Complete guide to utility-first CSS</textarea>
+      <input class="bookmark-category" type="text" value="Development">
       <div class="modal-buttons">
         <label for="updateBookmarkModalTrigger">Cancel</label>
-        <label for="updateBookmarkModalTrigger" class="primary-btn">Update</label>
+        <label id="updateBookmarkBtn" class="primary-btn">Update</label>
       </div>
     </div>
   </div>
@@ -183,16 +177,16 @@
       <h3>
         <i class="far fa-sticky-note"></i> Add note
       </h3>
-      <textarea placeholder="Write your note here..." rows="3"></textarea>
+      <textarea id="note-textarea" placeholder="Write your note here..." rows="3"></textarea>
       <div class="modal-buttons">
-        <label for="addNoteModalTrigger">Close</label>
-        <label for="addNoteModalTrigger" class="primary-btn">Save note</label>
+        <label for="addNoteModalTrigger" class="close-modal">Cancel</label>
+        <label id="save-note-btn" for="addNoteModalTrigger" class="primary-btn">Save note</label>
       </div>
     </div>
   </div>
   <!-- optional profile update modal (consistent) -->
   <input type="checkbox" id="updateProfileModalTrigger" class="modal-trigger" style="display:none;">
-    </div>
+  </div>
   </div>
 
   <script src="js/index.js"></script>

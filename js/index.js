@@ -65,6 +65,7 @@ function createUser() {
         document.getElementById("manager-section").classList.add("hidden");
       }
     },
+
     logout: function () {
       localStorage.removeItem("currentUser");
       alert("Logout successful!");
@@ -73,14 +74,12 @@ function createUser() {
 
     renderTasks: function () {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-       if (!currentUser || currentUser.tasks.length === 0) {
-          document.querySelector(".empty-state-demo").style.display = "block";
-        }
+      if (currentUser?.tasks.length === 0) {
+        document.querySelector(".empty-state-demo").style.display = "block";
+      }
       if (currentUser) {
         const tasksContainer = document.getElementById("booKGrid");
-       
         tasksContainer.innerHTML = "";
-
         currentUser.tasks.forEach((task, index) => {
           // main card
           const card = document.createElement("div");
@@ -98,7 +97,7 @@ function createUser() {
 
           const badge = document.createElement("span");
           badge.className = "category-badge";
-          badge.innerHTML = `<i class="fas fa-code"></i> ${task.category || "General"}`;
+          badge.innerHTML = `<i class="fas fa-${task.category?.toLowerCase() || "general"}"></i> ${task.category || "General"}`;
 
           titleCategory.append(title, badge);
 
@@ -155,8 +154,7 @@ function createUser() {
         });
       }
     },
-    createTask: function (title, description, url,category)
-     {
+    createTask: function (title, description, url, category) {
       const Newtask = {
         title: title,
         description: description,
@@ -169,31 +167,47 @@ function createUser() {
 
     addTask: function (task) {
       const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-
       if (currentUser) {
         currentUser.tasks.push(task);
 
         this.syncUser(currentUser); // ✅ IMPORTANT
 
         this.renderTasks();
+        document.querySelector(".empty-state-demo").style.display = "none";
         alert("Bookmark added successfully!");
       }
     },
-   removeTask: function (taskIndex) {
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    removeTask: function (taskIndex) {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-  if (currentUser) {
-    currentUser.tasks.splice(taskIndex, 1);
-    this.syncUser(currentUser);
-    this.renderTasks(); // ✅ add this
-  }
-  },
+      if (currentUser) {
+        currentUser.tasks.splice(taskIndex, 1);
+        this.syncUser(currentUser);
+        this.renderTasks(); // ✅ add this
+      }
+    },
+
+    updateTask: function (index, title, description, url, category) {
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      if (currentUser) {
+        currentUser.tasks[index] = {
+          title,
+          description,
+          url,
+          category,
+          createdAt: new Date(),
+        };
+        this.syncUser(currentUser);
+        this.renderTasks(); // ✅ add this
+      }
+    },
   };
 }
 
 const userManager = createUser();
 userManager.renderui();
 userManager.renderTasks();
+
 
 Loginform.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -234,6 +248,7 @@ Signupform.addEventListener("submit", function (e) {
   }
 });
 
+
 document
   .getElementById("updateProfileModalTrigger")
   ?.addEventListener("click", () => {
@@ -260,6 +275,27 @@ document
     document.querySelector(".bookmark-url").value = "";
     document.querySelector(".bookmark-category").value = "";
   });
+
+document
+  .getElementById("updateBookmarkBtn")
+  ?.addEventListener("click", function (e) {
+    const title = document.querySelector(".bookmark-title").value;
+    const description = document.querySelector(".bookmark-description").value;
+    const url = document.querySelector(".bookmark-url").value;
+    const category = document.querySelector(".bookmark-category").value;
+
+    userManager.updateTask(title, description, url, category);
+    // Close modal
+    document.getElementById("updateBookmarkModalTrigger").checked = false;
+
+    // Reset inputs
+    document.querySelector(".bookmark-title").value = "";
+    document.querySelector(".bookmark-description").value = "";
+    document.querySelector(".bookmark-url").value = "";
+    document.querySelector(".bookmark-category").value = "";
+  });
+
+
 
 document.getElementById("booKGrid").addEventListener("click", function (e) {
   const deleteBtn = e.target.closest(".remove");
