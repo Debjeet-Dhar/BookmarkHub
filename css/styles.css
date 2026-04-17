@@ -577,13 +577,20 @@
       }
       .action-bar {
         flex-direction: column;
-        align-items: stretch;
+        align-items: center;
       }
     }
 
    @media (max-width:320px){
    body {
         padding: 0.5rem;
+      }
+       .logout{
+        padding: 0.5rem 1.2rem;
+        font-size: 0.8rem;
+      }
+      .logout i{
+        font-size: 14px;
       }
       .add-bookmark-btn{
         padding: 1rem 0.7rem;
