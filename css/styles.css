@@ -285,7 +285,7 @@
 
     .action-bar {
       display: flex;
-      flex-wrap: wrap;
+      /* flex-wrap: wrap; */
       justify-content: space-between;
       align-items: center;
       gap: 1rem;
@@ -536,6 +536,12 @@
       background: #1f6e43;
       color: white;
     }
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6c7a91;
+    }
 
     @media (max-width: 760px) {
       body {
@@ -575,9 +581,25 @@
       }
     }
 
-    footer {
-      margin-top: 2rem;
-      text-align: center;
-      font-size: 0.7rem;
-      color: #6c7a91;
+   @media (max-width:320px){
+   body {
+        padding: 0.5rem;
+      }
+      .add-bookmark-btn{
+        padding: 1rem 0.7rem;
+        font-size: 1rem;
+      }
+      .manager-section {
+        border-radius: 2rem;
+        padding: 0.5rem 1.5rem;
+        margin-top: 0.5rem;
     }
+ .bookmark-card{
+      width: calc(93% - 1.5rem);
+      margin: auto;
+ }
+      .forms-container {
+        padding: 0.9rem;
+      }
+   }
+    
