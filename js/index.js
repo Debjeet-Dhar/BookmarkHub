@@ -93,11 +93,11 @@ function createUser() {
           titleCategory.className = "title-category";
 
           const title = document.createElement("h3");
-          title.textContent = task.title || `Bookmark ${index + 1}`;
+          title.textContent = task.title;
 
           const badge = document.createElement("span");
           badge.className = "category-badge";
-          badge.innerHTML = `<i class="fas fa-${task.category?.toLowerCase() || "general"}"></i> ${task.category || "General"}`;
+          badge.innerHTML = `<i class="fas fa-tag"></i> ${task.category}`;
 
           titleCategory.append(title, badge);
 
@@ -125,14 +125,14 @@ function createUser() {
           // description
           const desc = document.createElement("div");
           desc.className = "description";
-          desc.textContent = task.description || "No description provided.";
+          desc.textContent = task.description;
 
           // link
           const link = document.createElement("a");
-          link.href = task.url || "https://tailwindcss.com/docs";
+          link.href = task.url;
           link.target = "_blank";
           link.className = "url-link";
-          link.innerHTML = `<i class="fas fa-link"></i> ${task.url || "https://tailwindcss.com/docs"}`;
+          link.innerHTML = `<i class="fas fa-link"></i> ${task.url}`;
 
           // footer
           const footer = document.createElement("div");
@@ -145,8 +145,6 @@ function createUser() {
           const noteBtn = document.createElement("label");
           noteBtn.style.color = "#2c5f8a";
           noteBtn.style.cursor = "pointer";
-          noteBtn.innerHTML = `<i class="far fa-sticky-note"></i> Add note`;
-
           footer.append(time, noteBtn);
 
           // assemble
@@ -157,6 +155,10 @@ function createUser() {
     },
 
     createTask: function (title, description, url, category) {
+      if (!title || !description || !url || !category) {
+        alert("Please fill in all fields.");
+        return;
+      }
       const Newtask = {
         title: title,
         description: description,
@@ -206,9 +208,9 @@ function createUser() {
   };
 }
 
-const userManager = createUser();
-userManager.renderui();
-userManager.renderTasks();
+  const userManager = createUser();
+  userManager.renderui();
+  userManager.renderTasks();
 
 
 Loginform.addEventListener("submit", function (e) {
