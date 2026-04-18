@@ -108,6 +108,7 @@ function createUser() {
           const editBtn = document.createElement("label");
           editBtn.htmlFor = "updateBookmarkModalTrigger";
           editBtn.className = "icon-btn update";
+           editBtn.dataset.index = index;
           editBtn.style.cursor = "pointer";
           editBtn.innerHTML = `<i class="fas fa-edit"></i>`;
 
@@ -154,6 +155,7 @@ function createUser() {
         });
       }
     },
+
     createTask: function (title, description, url, category) {
       const Newtask = {
         title: title,
@@ -219,6 +221,7 @@ Loginform.addEventListener("submit", function (e) {
     alert("Login successful!");
     localStorage.setItem("currentUser", JSON.stringify(user));
     userManager.renderui();
+    document.querySelector(".empty-state-demo").style.display = "block";
   } else {
     alert("Invalid email or password.");
   }
@@ -276,36 +279,43 @@ document
     document.querySelector(".bookmark-category").value = "";
   });
 
-document
-  .getElementById("updateBookmarkBtn")
-  ?.addEventListener("click", function (e) {
-    const title = document.querySelector(".bookmark-title").value;
-    const description = document.querySelector(".bookmark-description").value;
-    const url = document.querySelector(".bookmark-url").value;
-    const category = document.querySelector(".bookmark-category").value;
+document.getElementById("updateBookmarkBtn").addEventListener("click", function () {
+  
+  const title = document.querySelector(".bookmarks-title").value;
+  const description = document.querySelector(".bookmarks-description").value;
+  const url = document.querySelector(".bookmarks-url").value;
+  const category = document.querySelector(".bookmarks-category").value;
 
-    userManager.updateTask(title, description, url, category);
-    // Close modal
-    document.getElementById("updateBookmarkModalTrigger").checked = false;
+  userManager.updateTask(editIndex, title, description, url, category);
 
-    // Reset inputs
-    document.querySelector(".bookmark-title").value = "";
-    document.querySelector(".bookmark-description").value = "";
-    document.querySelector(".bookmark-url").value = "";
-    document.querySelector(".bookmark-category").value = "";
-  });
+  // close modal
+  document.getElementById("updateBookmarkModalTrigger").checked = false;
+});
 
 
 
 document.getElementById("booKGrid").addEventListener("click", function (e) {
   const deleteBtn = e.target.closest(".remove");
+  const updateBtn = e.target.closest('.update')
 
-  if (deleteBtn) {
-    const index = deleteBtn.dataset.index;
-
-    const confirmDelete = confirm("Delete this bookmark?");
-    if (confirmDelete) {
-      userManager.removeTask(index);
+   if (deleteBtn) {
+      const index = deleteBtn.dataset.index;
+     const confirmDelete = confirm("Delete this bookmark?");
+      if (confirmDelete) {
+        console.log(index);
+       userManager.removeTask(index);
+     }
     }
+      if (updateBtn) {
+    editIndex = updateBtn.dataset.index;
+
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+    const task = currentUser.tasks[editIndex];
+
+    // fill modal inputs
+    document.querySelector(".bookmarks-title").value = task.title;
+    document.querySelector(".bookmarks-description").value = task.description;
+    document.querySelector(".bookmarks-url").value = task.url;
+    document.querySelector(".bookmarks-category").value = task.category;
   }
 });

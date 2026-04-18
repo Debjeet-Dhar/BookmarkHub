@@ -558,7 +558,11 @@
       .logo > span{
         font-size: 18px;
       }
+      .action-bar{
+        align-items: center;
+      }
       .rightside{
+        justify-content: center;
         margin: auto;
       }
       .add-bookmark-btn{
@@ -584,6 +588,10 @@
    @media (max-width:320px){
    body {
         padding: 0.5rem;
+      }
+      .rightside{
+        justify-content: center;
+        margin: auto;
       }
        .logout{
         padding: 0.5rem 1.2rem;
